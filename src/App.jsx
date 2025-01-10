@@ -8,10 +8,14 @@ import Login from './pages/Login'
 import MyAppoinment from './pages/MyAppoinment'
 import MyProfile from './pages/MyProfile'
 import Appoinments from './pages/Appoinments'
+import Navbar from './components/Navbar'
 
 const App = () => {
   return (
-    <div className='mx-4 sm:mx-[10%]'>
+    <div>
+
+      <Navbar/>
+
       <Routes>
         <Route path='/' element={<Home/>}/>
         <Route path='/doctors' element={<Doctors/>} />
