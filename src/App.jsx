@@ -12,7 +12,7 @@ import Navbar from './components/Navbar'
 
 const App = () => {
   return (
-    <div>
+    <div className='mx-2 sm:mx-[6%]'>
 
       <Navbar/>
 
