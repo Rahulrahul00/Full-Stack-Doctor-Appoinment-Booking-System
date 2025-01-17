@@ -6,20 +6,81 @@ import { assets } from '../assets/assets'
 
 const Appointment = () => {
 
-     const [docInfo, setDocInfo] = useState(null)
+  
     // Navigate to the appoinments from the topDoctors list and pick it up using useparams
     const {docId} = useParams()
     const {doctors, currencySymbol} = useContext(AppContext)
 
+    const [docInfo, setDocInfo] = useState(null)
+    const [docSlots,setDocsSlots] = useState([])
+    const [slotIndex,setSlotIndex] = useState(0)
+    const [slotTime,setSlotTime] = useState('')
+
     const fetchDocInfo = async()=>{
       const docInfo = doctors.find(doc=>doc._id === docId)
       setDocInfo(docInfo);
-      console.log(docInfo)
+      // console.log(docInfo)
+    }
+
+    // appoinment time selecting
+    const getAvailableSlots = async () =>{
+      setDocsSlots([])
+
+      //getting current date
+      let today = new Date()
+      // setSlotTime(today)
+      console.log(today)
+
+      for(let i = 0; i < 7; i++){
+        //getting date with index
+        let currentDate = new Date(today)
+        currentDate.setDate(today.getDate()+i)
+
+        //setting end time of the date with index
+        let endTime = new Date()
+        endTime.setDate(today.getDate()+i)
+        endTime.setHours(21,0,0,0)
+
+        //Setting Hours
+        if(today.getDate() === currentDate.getDate()){
+          currentDate.setHours(currentDate.getHours() > 10 ? currentDate.getHours() + 1 : 10)
+          currentDate.setMinutes(currentDate.getMinutes() > 30 ? 30 : 0)
+        }else{
+          currentDate.setHours(10)
+          currentDate.setMinutes(0)
+        }
+
+        let timeSlots = []
+
+
+        while(currentDate < endTime){
+          let formattedTime = currentDate.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})
+
+          //add slot to array
+          timeSlots.push({
+            datetime : new Date(currentDate),
+            time: formattedTime 
+          })
+
+          //Increment current time by 30 minutes
+          currentDate.setMinutes(currentDate.getMinutes() + 30)
+        }
+
+        setDocsSlots(prev => ([...prev, timeSlots]))
+      }
     }
     
     useEffect(()=>{
       fetchDocInfo()
     },[doctors,docId])
+
+    useEffect(()=>{
+      getAvailableSlots()
+    },[docInfo])
+
+    useEffect(()=>{
+      console.log(docSlots)
+    },[docSlots])
 
     // if doctorInfo is available that case only display the div
   return docInfo && (
