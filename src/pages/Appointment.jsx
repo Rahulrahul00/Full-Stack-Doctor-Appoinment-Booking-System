@@ -10,6 +10,7 @@ const Appointment = () => {
     // Navigate to the appoinments from the topDoctors list and pick it up using useparams
     const {docId} = useParams()
     const {doctors, currencySymbol} = useContext(AppContext)
+    const dayOfWeek = ['SUN','MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT']
 
     const [docInfo, setDocInfo] = useState(null)
     const [docSlots,setDocsSlots] = useState([])
@@ -65,7 +66,7 @@ const Appointment = () => {
           //Increment current time by 30 minutes
           currentDate.setMinutes(currentDate.getMinutes() + 30)
         }
-
+        
         setDocsSlots(prev => ([...prev, timeSlots]))
       }
     }
@@ -109,6 +110,9 @@ const Appointment = () => {
         </p>
        </div>
      </div>
+
+     {/*-----Booking Slots-----------*/}
+     
 
       
     </div>
