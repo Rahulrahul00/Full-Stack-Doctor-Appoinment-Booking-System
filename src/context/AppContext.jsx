@@ -10,14 +10,14 @@ const AppContextProvider = (props) =>{
 
     const currencySymbol ='₹'
     const backendUrl = import.meta.env.VITE_BACKEND_URL
+
     const [doctors, setDoctors] = useState([])
+   //user Authencation Token
+   const [token, setToken] = useState()
 
-    const value = {
-        doctors,
-        currencySymbol
+  
 
-    }
-
+    //Fetch all doctor data from backend excluding email and password
     const getDoctorsData = async () => {
 
         try{
@@ -33,6 +33,15 @@ const AppContextProvider = (props) =>{
             console.log(error)
             toast.error(error.message)
         }
+}
+
+
+const value = {
+    doctors,
+    currencySymbol,
+    token, setToken,
+    backendUrl
+
 }
 
 useEffect(()=>{

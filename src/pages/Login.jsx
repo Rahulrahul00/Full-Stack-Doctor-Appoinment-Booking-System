@@ -1,6 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import { AppContext } from '../context/AppContext'
+import axios from 'axios'
 
 const Login = () => {
+
+  const {backendUrl, token, setToken} = useContext(AppContext)
 
   const [state, setState] = useState('Sign Up')
 
@@ -10,7 +14,27 @@ const Login = () => {
 
   const onSubmitHandler = async (event) => {
     event.preventDefault()
+
+    try {
+
+      if (state === 'SignUp'){
+        const {data} = await axios.post(backendUrl + '/api/user/register', {email, password, name})
+        
+        if (data.success){
+          localStorage.setItem('token', data.token)
+          setToken(data.token)
+        }else{
+          toast.error(data.message)
+        }
+      }
+
+      
+    } catch (error) {
+      
+    }
   }
+
+
 
 
   return (
