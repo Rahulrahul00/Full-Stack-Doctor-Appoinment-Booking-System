@@ -1,16 +1,27 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { assets } from '../assets/assets'
 import { NavLink, useNavigate } from 'react-router-dom'
+import { AppContext } from '../context/AppContext';
+import { toast } from 'react-toastify';
 
 const Navbar = () => {
   const navigate = useNavigate();
 
+  const {token, setToken} = useContext(AppContext) //Authencation
+
   const [showMenu, setShowMenu] = useState(false)
-  const [token, setToken] = useState(true)
+  // const [token, setToken] = useState(true)
+
+  const logOut = () => {
+    toast.success('Log out successful!')
+    setToken(false)
+    localStorage.removeItem('token')
+  }
 
   return (
     <div className='flex items-center justify-between border-b  border-b-gray-300 text-sm  py-4 mb-5'>
-      <img onClick={() => navigate('/')} className='w-[150px] cursor-pointer ' src={assets.logo} alt="" />
+      {/* <img onClick={() => navigate('/')} className='w-[150px] cursor-pointer ' src={assets.logo} alt="" /> */}
+      <h1 className="text-3xl font-bold  text-primary "><span className='text-4xl text-indigo-600' >D</span>oc<span className='text-4xl text-indigo-600'>T</span>ym</h1>
       <ul className='hidden md:flex items-center gap-5 font-medium'>
         <NavLink to="/">
           <li className="py-1">Home</li>
@@ -42,7 +53,7 @@ const Navbar = () => {
                 <div className='min-w-48 bg-stone-100 rounded flex flex-col gap-4 p-4' >
                   <p onClick={() => navigate('/my-profile')} className='hover:text-black cursor-pointer' >My Profile</p>
                   <p onClick={() => navigate('/my-appoinments')} className='hover:text-black cursor-pointer' >My Appointments</p>
-                  <p onClick={() => setToken(false)} className='hover:text-black cursor-pointer' >Logoout</p>
+                  <p onClick={logOut}  className='hover:text-black cursor-pointer' >Logoout</p>
                 </div>
               </div>
             </div>

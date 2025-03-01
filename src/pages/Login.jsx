@@ -1,11 +1,14 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { AppContext } from '../context/AppContext'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 const Login = () => {
 
   const {backendUrl, token, setToken} = useContext(AppContext)
+
+  const navigate = useNavigate()
 
   const [state, setState] = useState('Sign Up')
 
@@ -18,20 +21,24 @@ const Login = () => {
 
     try {
 
-      if (state === 'SignUp'){
+      if (state === 'Sign Up'){
         const {data} = await axios.post(backendUrl + '/api/user/register', {email, password, name})
         
-        if (data.success){
-          localStorage.setItem('token', data.token)
-          setToken(data.token)
-        }else{
-          toast.error(data.message)
+        if (data.success) {
+           toast.success('Registration successful! Please log in.')
+           setState('LogIn')
+           setEmail('')
+           setPassword('')
+           setName('')
+        } else {
+          toast.error(data.message);
         }
       }else{
 
         const {data} = await axios.post(backendUrl + '/api/user/login', {email, password})
 
         if(data.success){
+          toast.success('Login Successful!')
           localStorage.setItem('token', data.token)
           setToken(data.token)
         }else{
@@ -46,6 +53,14 @@ const Login = () => {
     }
   }
 
+  useEffect(()=>{
+
+    if(token){
+      navigate('/')
+    }
+
+  },[token])
+
 
 
 
@@ -59,7 +74,7 @@ const Login = () => {
              <div className='w-full'>
               <p>Full Name</p>
               <input className='border border-zinc-300 rounded w-full p-2 mt-1' type="text" onChange={(e) => setName(e.target.value)} value={name} required />
-              {console.log(name)}
+             
             </div>
             
         }
@@ -79,7 +94,16 @@ const Login = () => {
         <button type='submit' className='bg-primary text-white w-full py-2 rounded-md text-base '>{state === 'Sign Up' ? 'Create Account' : 'LogIn'}</button>
         {
           state === 'Sign Up'
-            ? <p>Already have an account? <span onClick={()=>setState('LogIn')}  className="text-primary cursor-pointer  underline">LogIn here</span> </p>
+            ? <p>Already have an account?<span 
+            onClick={() => {
+              setState('LogIn')
+              setEmail('')
+              setPassword('')
+              setName('')
+            }}  
+            className="text-primary cursor-pointer underline">
+            LogIn here
+          </span>  </p>
             : <p>Create an new account? <span   onClick={()=>setState('Sign Up')} className="text-primary cursor-pointer underline"> click here</span> </p>
         }
       </div>

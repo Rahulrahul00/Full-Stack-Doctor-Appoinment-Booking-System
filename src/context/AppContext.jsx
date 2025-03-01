@@ -13,7 +13,7 @@ const AppContextProvider = (props) =>{
 
     const [doctors, setDoctors] = useState([])
    //user Authencation Token
-   const [token, setToken] = useState()
+   const [token, setToken] = useState('')
 
   
 
