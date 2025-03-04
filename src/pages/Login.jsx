@@ -38,9 +38,9 @@ const Login = () => {
         const {data} = await axios.post(backendUrl + '/api/user/login', {email, password})
 
         if(data.success){
-          toast.success('Login Successful!')
           localStorage.setItem('token', data.token)
-          setToken(data.token)
+         setToken(data.token)
+         toast.success('Login Successful!')
         }else{
           toast.error(data.message)
         }

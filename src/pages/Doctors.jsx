@@ -17,6 +17,7 @@ const Doctors = () => {
   const applyFilter = ()=>{
     if(speciality){
       setFilterDoc(doctors.filter(doc=> doc.speciality === speciality))
+    
     }else{
       setFilterDoc(doctors)
     }
@@ -33,7 +34,7 @@ const Doctors = () => {
       <div className='flex flex-col sm:flex-row items-start gap-5 mt-5' >
         <button className={`py-1 px-3 border rounded text-sm transition-all sm:hidden ${showFilter ? 'bg-primary':''}`} onClick={()=> setShowFilter(prev => !prev)}>Filter</button>
         <div className={`flex flex-col gap-4 text-sm text-gray-600 ${showFilter ? 'flex':'hidden sm:flex' }`}>
-          <p onClick={()=> speciality === 'General physician' ? navigate('/doctors') : navigate('/doctors/General physician') } className={`w-[94w] sm:w-auto pl-3 py-1.5 pr-16 border border-gray-500 rounded  transition-all cursor-pointer`} >General physician</p>
+          <p onClick={()=> speciality === 'General Physician' ? navigate('/doctors') : navigate('/doctors/General Physician') } className={`w-[94w] sm:w-auto pl-3 py-1.5 pr-16 border border-gray-500 rounded  transition-all cursor-pointer`} >General physician</p>
           <p onClick={()=> speciality === 'Gynecologist' ? navigate('/doctors') : navigate('/doctors/Gynecologist') } className={`w-[94w] sm:w-auto pl-3 py-1.5 pr-16 border border-gray-500 rounded  transition-all cursor-pointer`} >Gynecologist</p>
           <p onClick={()=> speciality === 'Dermatologist' ? navigate('/doctors') : navigate('/doctors/Dermatologist') } className={`w-[94w] sm:w-auto pl-3 py-1.5 pr-16 border border-gray-500 rounded  transition-all cursor-pointer`} >Dermatologist</p>
           <p onClick={()=> speciality === 'Pediatricians' ? navigate('/doctors') : navigate('/doctors/Pediatricians') } className={`w-[94w] sm:w-auto pl-3 py-1.5 pr-16 border border-gray-500 rounded  transition-all cursor-pointer`} >Pediatricians</p>
