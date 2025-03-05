@@ -60,31 +60,27 @@ const Appointment = () => {
 
 
       while (currentDate < endTime) {
-        let formattedTime = currentDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+  let formattedTime = currentDate.toLocaleTimeString('en-US', { 
+    hour: '2-digit', 
+    minute: '2-digit', 
+    hour12: true 
+  }).toUpperCase();
 
-        //Deleted the booked slot time
-        let day = currentDate.getDate()
-        let month = currentDate.getMonth() + 1
-        let year = currentDate.getFullYear()
+  let day = currentDate.getDate();
+  let month = currentDate.getMonth() + 1;
+  let year = currentDate.getFullYear();
 
-        const slotDate = day + "_" + month + "_" + year
-        const slotTime = formattedTime
+  const slotDate = `${day}-${month}-${year}`;
+  const slotTime = formattedTime;
 
-        const isSlotAvailable = docInfo.slots_booked[slotDate] && docInfo.slots_booked[slotDate].includes(slotTime) ? false : true
+  const isSlotAvailable = !(docInfo?.slots_booked?.[slotDate]?.includes(slotTime));
 
-        if (isSlotAvailable) {
-          //add slot to array
-          timeSlots.push({
-            datetime: new Date(currentDate),
-            time: formattedTime
-          })
-        }
+  if (isSlotAvailable) {
+    timeSlots.push({ datetime: new Date(currentDate), time: formattedTime });
+  }
 
-
-
-        //Increment current time by 30 minutes
-        currentDate.setMinutes(currentDate.getMinutes() + 30)
-      }
+  currentDate.setMinutes(currentDate.getMinutes() + 30);
+}
 
       setDocsSlots(prev => ([...prev, timeSlots]))
     }
@@ -104,7 +100,7 @@ const Appointment = () => {
       let month = date.getMonth() + 1
       let year = date.getFullYear()
 
-      const slotDate = day + "_" + month + "_" + year
+      const slotDate = day + "-" + month + "-" + year
 
       // console.log(slotDate);
 
