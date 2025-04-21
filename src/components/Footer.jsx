@@ -8,8 +8,9 @@ const Footer = () => {
 
                 {/* ............Left Section............... */}
                 <div>
-                    <img className='mb-5 w-[70px] ' src={assets.chats_icon} alt="" />
-                    <p className='w-full md:w-2/3 '>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                    {/* <img className='mb-5 w-[70px] ' src={assets.chats_icon} alt="" /> */}
+                    <h1  onClick={()=>navigate('/')} className="text-3xl font-bold  text-primary cursor-pointer "><span className='text-4xl' >D</span>oc<span className='text-4xl '>T</span>ym</h1>
+                    <p className='w-full md:w-2/3 my-4 '>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
 
                 </div>
 

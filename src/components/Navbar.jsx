@@ -22,8 +22,9 @@ const Navbar = () => {
 
   return (
     <div className='flex items-center justify-between border-b  border-b-gray-300 text-sm  py-4 mb-5'>
-      {/* <img onClick={() => navigate('/')} className='w-[150px] cursor-pointer ' src={assets.logo} alt="" /> */}
-      <h1  onClick={()=>navigate('/')} className="text-3xl font-bold  text-primary cursor-pointer "><span className='text-4xl text-indigo-600' >D</span>oc<span className='text-4xl text-indigo-600'>T</span>ym</h1>
+
+      <h1  onClick={()=>navigate('/')} className="text-3xl font-bold  text-primary cursor-pointer "><span className='text-4xl' >D</span>oc<span className='text-4xl '>T</span>ym</h1>
+      <div>
       <ul className='hidden md:flex items-center gap-5 font-medium'>
         <NavLink to="/">
           <li className="py-1">Home</li>
@@ -43,6 +44,7 @@ const Navbar = () => {
         </NavLink>
 
       </ul>
+      </div>
       {/* User Profile section */}
       <div className='flex items-center gap-4'>
         {
@@ -65,9 +67,10 @@ const Navbar = () => {
         <img onClick={() => setShowMenu(true)} className='w-6 md:hidden' src={assets.menu_icon} alt="" />
 
         {/* -------------Mobile Menu-------------- */}
-        <div className={` ${showMenu ? 'fixed w-full' : 'h-0 w-0'} md:hidden right-0 top-0 bottom-0 z-20 overflow-hidden bg-white transition-all`}>
+        <div className={` ${showMenu ? 'fixed w-full' : 'h-0 w-0'} md:hidden right-0 top-0 bottom-0 z-20 overflow-hidden   bg-white transition-all `}>
           <div className='flex items-center justify-between px-5 py-6'>
-            <img className="w-36" src={assets.logo} alt="" />
+          <h1  onClick={()=>navigate('/')} className="text-3xl font-bold  text-primary cursor-pointer "><span className='text-4xl' >D</span>oc<span className='text-4xl '>T</span>ym</h1>
+
             <img className='w-7' onClick={()=> setShowMenu(false)} src={assets.cross_icon} alt="" />
           </div>
           <ul className='flex flex-col items-center gap-2 mt-5 px-5 text-lg font-medium '>
